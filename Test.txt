@@ -1,0 +1,10 @@
+{Sample program in TINY language–Factorial}
+write "Enter an integer value: ";
+read x;
+factorial := 1;
+count := x;
+while count > 1 do
+factorial := factorial * count;
+count := count-1;
+end;
+write "factorial of " , x , " = " , factorial;
