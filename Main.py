@@ -1,7 +1,12 @@
-import Functions as fun
+import FunctionII as fun
 
 #Read the Source Code Line by line
-Code =open("test.txt", "r")
+Code = "{Sample program in TINY language�Factorial}" \
+       "factorial := 1;"\
+       "count := x;"
 
-for line in Code:
-    fun.CheckToken(line)
+fun.DFA(Code)
+
+
+
+
