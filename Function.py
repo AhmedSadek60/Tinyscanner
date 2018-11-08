@@ -1,4 +1,4 @@
-reservedTokens=["write", "read", "if", "end", "while", "do", "repeat", ";", "until", "then"]
+reservedTokens=["write", "read", "if", "end", "while", "do", "repeat", "until", "then"]
 listOfRelationalOperators  = ["<", ">", "<=", ">=", "==", "<>","="]
 listOfArthmitic = ["(", ")", "+", "-", "*", "/"]
 
@@ -9,22 +9,22 @@ def DFA(line):
         if ListOfChar[0] == "{":
             state = "INCOMMENT"
             # break
-
+        elif (ListOfChar[0]  == "\""):
+            state="String"
         elif (ListOfChar[0] in listOfArthmitic):
             state = "Operation"
         elif (ListOfChar[0] in listOfRelationalOperators):
             state = "Relation"
+        elif (ListOfChar[0]  == ";"):
+            state="End"
         elif (ListOfChar[0].isalpha()):
             state = "INID"
             # break
-
         elif (ListOfChar[0] == " "):
             state = "Start"
          #   print("ddd")
-
         elif (ListOfChar[0] == ":"):
             state = "INASSIGN"
-
         elif (ListOfChar[0].isdigit()):
             state = "INNUM"
 
@@ -44,7 +44,11 @@ def DFA(line):
             character = ""
             while (char.isalpha()):
                 character += char
-                char = ListOfChar.pop(0)
+                if(len(ListOfChar)<1 or ListOfChar[0] == ";" or ListOfChar[0] == "" or ListOfChar[0] == " "):
+                    break
+                else:
+                    char = ListOfChar.pop(0)
+
             if(character in reservedTokens):
                 print(character, " Reserved Word")
             else:
@@ -70,7 +74,10 @@ def DFA(line):
             character = ""
             while (digit.isdigit()):
                 character += digit
-                digit = ListOfChar.pop(0)
+                if (len(ListOfChar)<1 or ListOfChar[0] == ";" or ListOfChar[0] == "" or ListOfChar[0] == " "):
+                    break
+                else:
+                    digit = ListOfChar.pop(0)
             print(character, " Number")
 
         elif (state == "Relation"):
@@ -83,3 +90,20 @@ def DFA(line):
         elif (state == "Operation"):
             operation = ListOfChar.pop(0)
             print (operation, " Arithmetic Operation")
+
+        elif (state == "End"):
+            operation = ListOfChar.pop(0)
+            print (operation, " End Token")
+
+        elif (state == "String"):
+            ListOfChar.pop(0)
+            charStr = ListOfChar.pop(0)
+            character = "\""
+            while (charStr != "\""):
+                character += charStr
+                if (len(ListOfChar) < 1):
+                    break
+                else:
+                    charStr = ListOfChar.pop(0)
+            character+= "\""
+            print(character, " String")
