@@ -1,28 +1,11 @@
 import Function as fun
+# Open the file with read only permit
+f = open('test.txt')
+# use readline() to read the first line
+line = f.readline()
 
-#Read the Source Code Line by line
-
-Code = "{Sample program in TINY language Factorial}" \
-       "factorial := 1;"\
-       "count := x;"\
-       " write  fact   {  output  factorial of x } "\
-       "y := y +3 "\
-       " read x;   {input an integer }"\
-       "if  0 < x   then "\
-       "{dont compute if x <= 0 }"\
-       "fact  := 1;"\
-       "repeat "\
-       "fact  := fact *  x;            " \
-       " x  := x  -  1         " \
-       "until  " \
-       "x  =  0;        " \
-       " write  fact   {  output  factorial of x }" \
-       "end"
-
-fun.DFA(Code)
-'''
-f = open('Test.txt', 'r')
-line=f.readlines()
-for x in line:
-       fun.DFA(x)
-'''
+while line:
+    fun.DFA(line.split("\n")[0])
+    # use realine() to read next line
+    line = f.readline()
+f.close()
